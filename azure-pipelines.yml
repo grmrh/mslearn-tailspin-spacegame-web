@@ -7,8 +7,8 @@ pool:
     - npm
 
 variables:
-  buildConfigurationDebug: 'Debug'
-  buildConfigurationRelease: 'Release'
+  # buildConfigurationDebug: 'Debug'
+  buildConfiguration: 'Release'
   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
   dotnetSdkVersion: '3.1.200'
 
@@ -42,41 +42,47 @@ steps:
 
 
 
-- task: DotNetCoreCLI@2
-  displayName: 'Build the project - $(buildConfigurationDebug)'
-  inputs:
-    command: 'build'
-    arguments: '--no-restore --configuration $(buildConfigurationDebug)'
-    projects: '**/*.csproj'
+# - task: DotNetCoreCLI@2
+#   displayName: 'Build the project - $(buildConfigurationDebug)'
+#   inputs:
+#     command: 'build'
+#     arguments: '--no-restore --configuration $(buildConfigurationDebug)'
+#     projects: '**/*.csproj'
   
-- task: DotNetCoreCLI@2
-  displayName: 'Publish the project - $(buildConfigurationDebug)'
-  inputs:
-    command: 'publish'
-    projects: '**/*.csproj'
-    publishWebProjects: false
-    arguments: '--no-build --configuration $(buildConfigurationDebug) --output $(Build.ArtifactStagingDirectory)/$(buildConfigurationDebug)'
-    zipAfterPublish: true
+# - task: DotNetCoreCLI@2
+#   displayName: 'Publish the project - $(buildConfigurationDebug)'
+#   inputs:
+#     command: 'publish'
+#     projects: '**/*.csproj'
+#     publishWebProjects: false
+#     arguments: '--no-build --configuration $(buildConfigurationDebug) --output $(Build.ArtifactStagingDirectory)/$(buildConfigurationDebug)'
+#     zipAfterPublish: true
 
 
 
-- task: DotNetCoreCLI@2
-  displayName: 'Build the project - $(buildConfigurationRelease)'
-  inputs:
-    command: 'build'
-    arguments: '--no-restore --configuration $(buildConfigurationRelease)'
-    projects: '**/*.csproj'
+# - task: DotNetCoreCLI@2
+#   displayName: 'Build the project - $(buildConfigurationRelease)'
+#   inputs:
+#     command: 'build'
+#     arguments: '--no-restore --configuration $(buildConfigurationRelease)'
+#     projects: '**/*.csproj'
   
-- task: DotNetCoreCLI@2
-  displayName: 'Publish the project - $(buildConfigbuildConfigurationReleaseuration)'
-  inputs:
-    command: 'publish'
-    projects: '**/*.csproj'
-    publishWebProjects: false
-    arguments: '--no-build --configuration $(buildConfigurationRelease) --output $(Build.ArtifactStagingDirectory)/$(buildConfigurationRelease)'
-    zipAfterPublish: true
+# - task: DotNetCoreCLI@2
+#   displayName: 'Publish the project - $(buildConfigbuildConfigurationReleaseuration)'
+#   inputs:
+#     command: 'publish'
+#     projects: '**/*.csproj'
+#     publishWebProjects: false
+#     arguments: '--no-build --configuration $(buildConfigurationRelease) --output $(Build.ArtifactStagingDirectory)/$(buildConfigurationRelease)'
+#     zipAfterPublish: true
 
+- template: templates/build.yml
+  parameters:
+    buildConfiguration: 'Debug'
 
+- template: templates/build.yml
+  parameters:
+    buildConfiguration: 'Release'
 
 
 - task: PublishBuildArtifacts@1
