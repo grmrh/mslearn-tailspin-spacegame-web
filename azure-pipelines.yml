@@ -10,7 +10,7 @@ variables:
   # buildConfigurationDebug: 'Debug'
   buildConfiguration: 'Release'
   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
-  dotnetSdkVersion: '3.1.200'
+  dotnetSdkVersion: '2.1.511'
 
 steps:
 - task: UseDotNet@2
